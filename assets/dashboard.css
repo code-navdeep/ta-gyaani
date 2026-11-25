@@ -1,0 +1,402 @@
+:root {
+  --bg:           #11151c;
+  --surface:      #181f29;
+  --surface-hi:   #222b38;
+  --divider:      #2a3441;
+
+  --text:         #e1e6ed;
+  --text-mute:    #8b96a3;
+  --text-faint:   #5a6573;
+
+  --up:           #3ddc84;
+  --up-dim:       rgba(61, 220, 132, 0.16);
+  --up-glow:      rgba(61, 220, 132, 0.45);
+
+  --down:         #ff5670;
+  --down-dim:     rgba(255, 86, 112, 0.16);
+  --down-glow:    rgba(255, 86, 112, 0.45);
+
+  --warn:         #ffb547;
+  --warn-dim:     rgba(255, 181, 71, 0.16);
+  --warn-glow:    rgba(255, 181, 71, 0.45);
+
+  --info:         #a78bfa;
+  --info-dim:     rgba(167, 139, 250, 0.16);
+  --info-glow:    rgba(167, 139, 250, 0.45);
+
+  --select:       #ffb547;
+  --select-dim:   rgba(255, 181, 71, 0.18);
+  --select-glow:  rgba(255, 181, 71, 0.40);
+}
+
+html, body, #react-entry-point, ._dash-app-content {
+  background-color: var(--bg);
+  color: var(--text);
+  margin: 0;
+  padding: 0;
+  font-family: 'Plus Jakarta Sans', system-ui, -apple-system, 'SF Pro Text', Segoe UI, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* The cool :root palette above is overridden by dashboard.py's inline <style>
+   (the warm one the app uses) — but only rule by rule. The rules below that
+   the inline block does not override carry warm values directly. */
+body {
+  background-image:
+    radial-gradient(circle at 1px 1px, rgba(245, 233, 211, 0.025) 1px, transparent 0);
+  background-size: 28px 28px;
+  background-attachment: fixed;
+}
+
+.dash-cell-value, .dash-table-container input {
+  font-family: 'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-feature-settings: 'tnum' 1, 'zero' 1, 'ss01' 1;
+}
+
+/* === DataTable === */
+.dash-table-container .dash-spreadsheet-container {
+  background-color: transparent !important;
+}
+.dash-table-container .dash-spreadsheet-inner table {
+  border-collapse: collapse !important;
+}
+.dash-table-container .dash-spreadsheet-inner th,
+.dash-table-container .dash-spreadsheet-inner td {
+  border: none !important;
+  border-bottom: 1px solid var(--divider) !important;
+  transition: background-color 120ms ease, border-left-color 120ms ease;
+}
+.dash-table-container .dash-spreadsheet-inner th {
+  border-bottom: 1px solid var(--divider) !important;
+  background-color: var(--bg) !important;
+}
+.dash-table-container .dash-spreadsheet-inner tr:hover td {
+  background-color: #2a2118 !important;
+}
+.dash-table-container .dash-spreadsheet-inner tr:hover td:first-child {
+  border-left-color: #e8a447 !important;
+}
+.dash-table-container .dash-spreadsheet-inner td.focused,
+.dash-table-container .dash-spreadsheet-inner td.cell--selected,
+.dash-table-container .dash-spreadsheet-inner td.dash-cell.focused {
+  background-color: #2a2118 !important;
+  position: relative !important;
+  z-index: 2 !important;
+  box-shadow:
+    inset 0  2px 0 0 #e8a447,
+    inset 0 -2px 0 0 #e8a447,
+    inset  2px 0 0 0 #e8a447,
+    inset -2px 0 0 0 #e8a447,
+    0 0 14px rgba(232, 164, 71, 0.40) !important;
+  outline: none !important;
+}
+.dash-filter input,
+.dash-filter--case input {
+  background-color: var(--bg) !important;
+  color: var(--text) !important;
+  border: 1px solid var(--divider) !important;
+  border-radius: 3px !important;
+  padding: 4px 6px !important;
+  transition: border-color 150ms ease, box-shadow 150ms ease;
+}
+.dash-filter input:focus,
+.dash-filter--case input:focus {
+  border-color: var(--select) !important;
+  box-shadow: 0 0 0 2px var(--select-dim) !important;
+  outline: none !important;
+}
+.dash-filter input::placeholder {
+  color: var(--text-faint) !important;
+}
+.dash-spreadsheet-menu,
+.previous-next-container { color: var(--text-mute) !important; }
+.dash-spreadsheet-menu svg { fill: var(--text-mute) !important; }
+.column-header--sort { color: #b8a99b !important; }
+.column-header--sort:hover { color: #f5e9d3 !important; }
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--divider); border-radius: 2px; }
+::-webkit-scrollbar-thumb:hover { background: var(--text-faint); }
+
+::selection { background: var(--select); color: var(--bg); }
+
+a { color: var(--select); text-decoration: none; transition: color 0.15s ease; }
+a:hover { color: var(--text); }
+
+/* RadioItems / Checklist on dark */
+input[type="radio"], input[type="checkbox"] { accent-color: var(--select); }
+
+/* Plotly modebar */
+.modebar { background: transparent !important; }
+.modebar-btn path { fill: var(--text-mute) !important; }
+.modebar-btn:hover path { fill: var(--text) !important; }
+
+/* ========================================================================
+   Settings drawer + themed controls
+   ------------------------------------------------------------------------
+   Header ⚙ button opens a dbc.Offcanvas ("Settings"). Body hosts:
+   1. Themed continuous slider for the z-highlight threshold (rc-slider
+      overrides).
+   2. Pill toggle group for the chart-window selector (1h / 2h / 4h / 8h /
+      1d), active pill filled amber.
+   All selectors scoped to the settings drawer + drawer-adjacent elements
+   so no other slider/pill on the page inherits these styles.
+   ======================================================================== */
+
+/* ⚙ toggle button in the header */
+.settings-gear-button {
+  background: transparent;
+  color: var(--text-mute);
+  border: 1px solid var(--divider);
+  border-radius: 4px;
+  width: 30px;
+  height: 30px;
+  font-size: 15px;
+  line-height: 1;
+  cursor: pointer;
+  margin-right: 14px;
+  padding: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 150ms ease, border-color 150ms ease, background-color 150ms ease;
+}
+.settings-gear-button:hover {
+  color: var(--select);
+  border-color: var(--select);
+  background-color: var(--select-dim);
+}
+
+/* Offcanvas body — editorial dark surface, matches the detail drawer */
+.settings-drawer {
+  background-color: #1a1410 !important;
+  color: var(--text) !important;
+  border-left: 1px solid #3a3128 !important;
+  width: 340px !important;
+}
+.settings-drawer .offcanvas-header {
+  border-bottom: 1px solid #3a3128;
+  background-color: #1a1410;
+}
+.settings-drawer .offcanvas-title {
+  font-family: 'Fraunces', Georgia, serif;
+  font-size: 20px;
+  font-weight: 400;
+  font-style: italic;
+  color: #f5e9d3;
+  letter-spacing: -0.2px;
+}
+.settings-drawer .btn-close {
+  filter: invert(1) grayscale(1) brightness(0.9);
+}
+
+.settings-drawer-row {
+  padding: 20px 4px 16px 4px;
+  border-bottom: 1px solid #2a2118;
+}
+.settings-drawer-row:last-child {
+  border-bottom: none;
+}
+.settings-drawer-label {
+  font-size: 10.5px;
+  color: #b8a99b;
+  font-family: 'JetBrains Mono', ui-monospace, Menlo, monospace;
+  letter-spacing: 0.9px;
+  text-transform: uppercase;
+  margin-bottom: 14px;
+}
+
+/* Themed slider — rc-slider overrides scoped to .themed-slider so nothing
+   else on the page gets restyled. */
+.themed-slider-wrap {
+  padding: 4px 8px 24px 8px;
+}
+.themed-slider .rc-slider-rail {
+  background-color: #3a3128;
+  height: 4px;
+}
+.themed-slider .rc-slider-track {
+  background-color: #4a3614;
+  height: 4px;
+}
+.themed-slider .rc-slider-handle {
+  background-color: #8a6b3b;
+  border: 2px solid #c4a76e;
+  width: 16px;
+  height: 16px;
+  margin-top: -6px;
+  opacity: 1;
+  box-shadow: 0 0 0 0 transparent;
+}
+.themed-slider .rc-slider-handle:hover,
+.themed-slider .rc-slider-handle-dragging,
+.themed-slider .rc-slider-handle:focus {
+  border-color: #e8a447 !important;
+  box-shadow: 0 0 0 4px rgba(232, 164, 71, 0.2) !important;
+}
+.themed-slider .rc-slider-mark-text {
+  color: #7a6e62 !important;
+  font-family: 'JetBrains Mono', ui-monospace, Menlo, monospace;
+  font-size: 10px;
+}
+.themed-slider .rc-slider-mark-text-active {
+  color: #c4a76e !important;
+}
+.themed-slider .rc-slider-dot {
+  background-color: #2a2118;
+  border-color: #3a3128;
+}
+.themed-slider .rc-slider-dot-active {
+  border-color: #8a6b3b;
+  background-color: #4a3614;
+}
+.themed-slider .rc-slider-tooltip-inner {
+  background-color: #2a2118 !important;
+  color: #f5e9d3 !important;
+  border: 1px solid #4a3614 !important;
+  font-family: 'JetBrains Mono', ui-monospace, Menlo, monospace;
+  font-size: 11px;
+  min-width: 32px;
+  padding: 3px 6px;
+}
+.themed-slider .rc-slider-tooltip-arrow {
+  border-top-color: #4a3614 !important;
+}
+
+/* Chart-window pill toggle group */
+.chart-window-pill-group {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+.chart-window-pill {
+  font-family: 'JetBrains Mono', ui-monospace, Menlo, monospace;
+  font-size: 11px;
+  letter-spacing: 0.5px;
+  padding: 6px 12px;
+  border-radius: 4px;
+  border: 1px solid #3a3128;
+  background-color: transparent;
+  color: #b8a99b;
+  cursor: pointer;
+  transition: background-color 150ms ease, border-color 150ms ease, color 150ms ease;
+  min-width: 44px;
+}
+.chart-window-pill:hover {
+  border-color: #8a6b3b;
+  color: #f5e9d3;
+}
+.chart-window-pill.active {
+  background-color: #4a3614;
+  border-color: #8a6b3b;
+  color: #f5e9d3;
+}
+.chart-window-pill.inactive {
+  background-color: transparent;
+}
+
+/* ========================================================================
+   Charts drawer tab styling — replace Bootstrap primary blue with
+   the app's editorial theme (JetBrains Mono, small caps, amber underline).
+   ======================================================================== */
+#chart-drawer-tabs .nav-tabs {
+  border-bottom: 1px solid #3a3128;
+  padding: 0 4px;
+}
+#chart-drawer-tabs .nav-link {
+  background-color: transparent;
+  border: none !important;
+  color: #7a6e62;
+  font-family: 'JetBrains Mono', ui-monospace, Menlo, monospace;
+  font-size: 11px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  padding: 6px 14px;
+  margin-right: 4px;
+  transition: color 150ms ease, border-color 150ms ease;
+}
+#chart-drawer-tabs .nav-link:hover {
+  color: #f5e9d3;
+  background-color: transparent;
+}
+#chart-drawer-tabs .nav-link.active {
+  color: #f5e9d3;
+  background-color: transparent;
+  border: none !important;
+  border-bottom: 2px solid #e8a447 !important;
+}
+
+/* ========================================================================
+   Detail drawer — right-side slide-in offcanvas replacing the
+   pre-existing sticky right column. Wider (640px), no backdrop so the
+   scores table stays visible and interactive behind it. Middle-vertical
+   arrow toggle sits on the right viewport edge.
+   ======================================================================== */
+.detail-drawer {
+  width: 640px !important;
+  background-color: #1a1410 !important;
+  color: #f5e9d3 !important;
+  border-left: 1px solid #3a3128 !important;
+}
+.detail-drawer .offcanvas-header {
+  border-bottom: 1px solid #3a3128;
+  background-color: #1a1410;
+  padding: 10px 16px;
+}
+.detail-drawer .offcanvas-title {
+  font-family: 'Fraunces', Georgia, serif;
+  font-size: 15px;
+  font-weight: 400;
+  font-style: italic;
+  color: #b8a99b;
+  letter-spacing: -0.2px;
+}
+.detail-drawer .offcanvas-body {
+  padding: 14px 20px 24px 20px;
+}
+.detail-drawer .btn-close {
+  display: none !important;   /* hidden: the arrow toggle is the only close path */
+}
+
+/* Middle-vertical arrow toggle — anchored to the drawer's outer edge so it
+   rides the drawer as it opens/closes. Base rule declares `right: 0` so the
+   browser has a stable initial value BEFORE className changes (some
+   browsers skip the first transition when the initial value only exists in
+   a class). Cubic-bezier timing matches Bootstrap's offcanvas slide curve
+   so arrow + drawer travel in lockstep. */
+.detail-drawer-toggle {
+  position: fixed;
+  right: 0;
+  top: 50vh;
+  transform: translateY(-50%);
+  z-index: 1050;
+  width: 22px;
+  height: 62px;
+  background-color: #231b15;
+  color: #b8a99b;
+  border: 1px solid #3a3128;
+  border-right: none;
+  border-radius: 6px 0 0 6px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition:
+    right 300ms cubic-bezier(0.25, 0.1, 0.25, 1),
+    color 150ms ease,
+    background-color 150ms ease,
+    border-color 150ms ease;
+}
+.detail-drawer-toggle.closed { right: 0; }
+.detail-drawer-toggle.open   { right: 640px; }
+.detail-drawer-toggle:hover {
+  color: #e8a447;
+  background-color: #2a2118;
+  border-color: #8a6b3b;
+}

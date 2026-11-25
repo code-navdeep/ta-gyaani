@@ -1,0 +1,49 @@
+# Market holidays for TA Gyaani — days the NSE equity market is closed.
+# One date per line, dd/mm/yyyy (e.g. 14/04/2026). Lines starting with # are
+# ignored, so a date may be followed by a # line naming the holiday.
+#
+# What a listed date does (calculators/market_calendar.py): it is not a trading
+# day. The engine does not fetch, the metrics loop does not run, and none of
+# the end-of-day jobs runs — archive, cleanup and token renewal alike. It is
+# also skipped when the morning step finds "the previous trading day" to file
+# yesterday's close under.
+#
+# Why it matters: a holiday NOT listed here is polled all day and archived as a
+# trading day — a false sample in every stock's every 15-minute block, and a
+# false daily row in the gap history and beta, with no error anywhere.
+#
+# UPDATE EACH YEAR, as soon as NSE publishes the next year's trading-holiday
+# list (late in the year; it is on nseindia.com): add next year's dates below. A missing file, a
+# line that is not a date, or no date for the current year is logged at ERROR
+# and the app still runs, skipping weekends plus whatever dates did parse.
+
+
+14/04/2026
+# Tuesday, Dr. BR Ambedkar Jayanti
+
+01/05/2026
+# Friday, Maharashtra Day
+
+28/05/2026
+#Thursday, Bakr-Eid
+
+26/06/2026
+# Friday, Muharram
+
+14/09/2026
+# Monday, Ganesh Chaturthi
+
+02/10/2026
+# Friday, Mahatma Gandhi Jayanti
+
+20/10/2026
+# Tuesday, Dussehra
+
+10/11/2026
+# Tuesday, Diwali
+
+24/11/2026
+# Tuesday, Prakash Gurpurb Sri Guru Nanak Dev
+
+25/12/2026
+# Friday, Christmas

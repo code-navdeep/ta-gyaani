@@ -1,0 +1,23 @@
+{
+  "relative_strength": {
+    "beta_precompute_max_days": 253
+  },
+  "atr": {
+    "period": 14
+  },
+  "ema": {
+    "span_5min": 60,
+    "span_15min": 180,
+    "span_30min": 360
+  },
+  "alerts": {
+    "zscore_highlight_threshold": 2.0
+  },
+  "schedule": {
+    "enabled": true,
+    "start_time": "09:15",
+    "end_time": "15:31",
+    "schedule_type": "weekdays",
+    "last_modified": "2026-01-12T04:36:07.148328"
+  }
+}

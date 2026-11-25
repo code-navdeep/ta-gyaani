@@ -1,0 +1,22 @@
+# Web Framework & Dashboards
+dash==4.4.1
+dash-bootstrap-components==2.0.4
+dash-auth==2.3.0
+plotly==6.9.0
+
+# Core Data Processing
+pandas==3.0.5
+numpy==2.5.2
+
+# HTTP Requests
+requests==2.34.2
+
+# Environment Variables
+python-dotenv==1.2.3
+
+tqdm==4.70.0
+pyzmq==27.1.0
+
+# Development / testing (not required for production container operation;
+# smoke tests run host-side against the project venv).
+pytest==9.1.1

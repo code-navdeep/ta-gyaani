@@ -1,0 +1,4 @@
+#react-entry-point,
+#react-entry-point > div {
+    overflow: visible !important;
+}

@@ -1,0 +1,59 @@
+# Environment (loaded at runtime, not build time)
+.env
+.env.*
+
+# Git
+.git
+.gitignore
+
+# Python
+__pycache__
+*.py[cod]
+*$py.class
+*.so
+.Python
+.venv
+venv/
+ENV/
+env/
+.eggs
+*.egg-info/
+*.egg
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# macOS
+.DS_Store
+*.command
+
+# Windows
+*.bat
+Thumbs.db
+
+# Docker
+Dockerfile
+docker-compose.yml
+.dockerignore
+
+# Data (mounted as volumes, not copied)
+data/*.db
+data/logs/
+
+# Documentation
+*.md
+README*
+docs/
+
+# Tests
+tests/
+test_*
+*_test.py
+
+# Temporary files
+*.tmp
+*.temp
+*.bak
